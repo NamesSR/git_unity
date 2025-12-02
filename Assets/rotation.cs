@@ -3,15 +3,23 @@ using UnityEngine.InputSystem.Controls;
 
 public class rotation : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float amplitude = 1.0f; // hoe hoog/laag de sins golf
+    public float frequency = 1.0f; // hoe snell
+    public float rotateSpeed = 90.0f;
+
+    private Vector3 startPosition;
     void Start()
     {
-        
+        startPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0, 90f * Time.deltaTime, 0);
+        float newY = startPosition.y * amplitude * Mathf.Sin(Time.time * frequency);
+        transform.position = new Vector3(startPosition.x, newY, startPosition.z);
+
+        transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
     }
+
 }
